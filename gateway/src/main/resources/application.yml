@@ -1,0 +1,90 @@
+server:
+  port: 8088
+
+---
+
+spring:
+  profiles: default
+  cloud:
+    gateway:
+      routes:
+        - id: 사용자
+          uri: http://localhost:8081
+          predicates:
+            - Path=, 
+        - id: 중개업
+          uri: http://localhost:8082
+          predicates:
+            - Path=, 
+        - id: 매장
+          uri: http://localhost:8083
+          predicates:
+            - Path=, 
+        - id: 라이더
+          uri: http://localhost:8084
+          predicates:
+            - Path=, 
+        - id: 대시보드
+          uri: http://localhost:8085
+          predicates:
+            - Path=, 
+        - id: frontend
+          uri: http://localhost:8080
+          predicates:
+            - Path=/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    gateway:
+      routes:
+        - id: 사용자
+          uri: http://사용자:8080
+          predicates:
+            - Path=, 
+        - id: 중개업
+          uri: http://중개업:8080
+          predicates:
+            - Path=, 
+        - id: 매장
+          uri: http://매장:8080
+          predicates:
+            - Path=, 
+        - id: 라이더
+          uri: http://라이더:8080
+          predicates:
+            - Path=, 
+        - id: 대시보드
+          uri: http://대시보드:8080
+          predicates:
+            - Path=, 
+        - id: frontend
+          uri: http://frontend:8080
+          predicates:
+            - Path=/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+server:
+  port: 8080
